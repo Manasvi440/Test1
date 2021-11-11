@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_cb_topic">
+    <sys_cb_topic action="INSERT_OR_UPDATE">
+        <applicability/>
+        <category display_value="ITSM Fulfiller">bfdd66da0b203300a1b16c2367673a1f</category>
+        <channels/>
+        <connect_queue/>
+        <description/>
+        <flexible_conversation_switching>true</flexible_conversation_switching>
+        <graph>{
+  "graph_api_version": "1.0.21.pp4",
+  "goals": {
+    "primary": {
+      "id": "primary",
+      "trigger": {
+        "type": "primary"
+      },
+      "name": "primary",
+      "applicability": "",
+      "description": "",
+      "nodes": {
+        "9eabd146009243adadc88ab017292ee8": {
+          "id": "9eabd146009243adadc88ab017292ee8",
+          "stepType": "Start",
+          "name": "Start",
+          "greetingResponse": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "88f655fa454542fb81e513075a7ecd20": {
+          "id": "88f655fa454542fb81e513075a7ecd20",
+          "stepType": "TerminateGoal",
+          "name": "End",
+          "confirmationMessage": {
+            "mode": "simple",
+            "value": ""
+          }
+        },
+        "41221a3f6ab34e798a3291659a74cad3": {
+          "id": "41221a3f6ab34e798a3291659a74cad3",
+          "stepType": "Decision",
+          "name": "Decision"
+        },
+        "590456cefed34511a3f0e44f8f6b4ef1": {
+          "id": "590456cefed34511a3f0e44f8f6b4ef1",
+          "stepType": "Prompt",
+          "name": "Coonect with agent",
+          "prompt": {
+            "value": "Want to Connect ?",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "1d78d8ad175a4ed4939424b033c53136"
+        },
+        "249dc82562404caf8b046c22d1a4d550": {
+          "id": "249dc82562404caf8b046c22d1a4d550",
+          "name": "Agent",
+          "script": "(function execute() {\n    /* Code your scripted action here. For example, you might update a\n       record based on conditional logic:\n\n        if (vaVars.my_flag == 'say hello') {\n            gs.info('hi there');\n        } else {\n            gs.info('bye now');\n        }\n    */\n  //  if(vaInputs.please_enter.getValue()=='1')\n  //  {\n        gs.info('Customer service')\n       // vaVars.LiveAgent_queue =  '4bc7a3f3c31331001c845cb981d3ae44'\n        vaSystem.connectToAgent();\n   // }\n  //  else\n   // {\n      //  gs.info('Virtual agent')\n      //  vaVars.LiveAgent_queue =  'f4d701b1b3900300f7d1a13816a8dc8e'\n     //   vaSystem.connectToAgent();\n  //  }\n})()\n",
+          "stepType": "ScriptAction",
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          }
+        },
+        "001fc495f6f04f07925f8b74081fcb62": {
+          "id": "001fc495f6f04f07925f8b74081fcb62",
+          "stepType": "Prompt",
+          "name": "Please enter",
+          "prompt": {
+            "value": "Please enter",
+            "mode": "simple"
+          },
+          "confirmMessage": {
+            "value": "",
+            "mode": "simple"
+          },
+          "acknowledgeMsg": {
+            "value": "",
+            "mode": "simple"
+          },
+          "applicability": {
+            "value": "",
+            "mode": "query"
+          },
+          "skippable": {
+            "value": "",
+            "mode": "query"
+          },
+          "defaultValue": {
+            "value": "",
+            "mode": "simple"
+          },
+          "withNluUserInput": false,
+          "skipIfFulfilled": false,
+          "variableId": "59a151c665ff4adf960b5cafea80dfaf",
+          "inputType": {
+            "format": "Text",
+            "script": ""
+          }
+        }
+      },
+      "edges": [
+        {
+          "id": "e599fa1ea0f74b6eac6c3688902967a3",
+          "edgeType": "Branch",
+          "source": "41221a3f6ab34e798a3291659a74cad3",
+          "target": "88f655fa454542fb81e513075a7ecd20",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.coonect_with_agent=",
+            "mode": "query"
+          },
+          "label": "No"
+        },
+        {
+          "id": "1a8a218e507345499877f372cf829985",
+          "edgeType": "Edge",
+          "source": "590456cefed34511a3f0e44f8f6b4ef1",
+          "target": "41221a3f6ab34e798a3291659a74cad3",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "266128aaff6d4b948ac678a7da28637d",
+          "edgeType": "Branch",
+          "source": "41221a3f6ab34e798a3291659a74cad3",
+          "target": "249dc82562404caf8b046c22d1a4d550",
+          "sourcePort": "",
+          "targetPort": "",
+          "expression": {
+            "value": "vaInputs.coonect_with_agent=true",
+            "mode": "query"
+          },
+          "label": "yes"
+        },
+        {
+          "id": "813e010a1915407285d1cf2c6c9b47d1",
+          "edgeType": "Edge",
+          "source": "249dc82562404caf8b046c22d1a4d550",
+          "target": "88f655fa454542fb81e513075a7ecd20",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "2f6646e00bac40ffadd358c1ff7b2322",
+          "edgeType": "Edge",
+          "source": "9eabd146009243adadc88ab017292ee8",
+          "target": "001fc495f6f04f07925f8b74081fcb62",
+          "sourcePort": "",
+          "targetPort": ""
+        },
+        {
+          "id": "6e47e80e6ef84830940edfddc98d1d7a",
+          "edgeType": "Edge",
+          "source": "001fc495f6f04f07925f8b74081fcb62",
+          "target": "590456cefed34511a3f0e44f8f6b4ef1",
+          "sourcePort": "",
+          "targetPort": ""
+        }
+      ]
+    }
+  },
+  "variables": {
+    "e786aadd5b4e43d9abb9db66fd3d3fb3": {
+      "category": "vaInputs",
+      "id": "e786aadd5b4e43d9abb9db66fd3d3fb3",
+      "label": "User",
+      "name": "user",
+      "table": "sys_user",
+      "varType": "reference"
+    },
+    "1d78d8ad175a4ed4939424b033c53136": {
+      "id": "1d78d8ad175a4ed4939424b033c53136",
+      "name": "coonect_with_agent",
+      "label": "Coonect With Agent",
+      "varType": "boolean",
+      "category": "vaInputs"
+    },
+    "59a151c665ff4adf960b5cafea80dfaf": {
+      "id": "59a151c665ff4adf960b5cafea80dfaf",
+      "name": "please_enter",
+      "label": "Please Enter",
+      "varType": "string",
+      "category": "vaInputs"
+    }
+  }
+}</graph>
+        <key_phrases>TestGlobalAgent1,TestGlobalAgent,Agent Test</key_phrases>
+        <library>false</library>
+        <live_agent>false</live_agent>
+        <name>TestGlobalAgent1</name>
+        <nlu_intent/>
+        <nlu_intent_label/>
+        <nlu_model/>
+        <nlu_model_label/>
+        <nlu_provider/>
+        <roles/>
+        <source_topic_id>f6cb74898771b0107c2043fc0ebb3542</source_topic_id>
+        <sys_class_name>sys_cb_topic</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2021-08-04 06:19:48</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_id>6c7cf4898771b0107c2043fc0ebb356f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>TestGlobalAgent1</sys_name>
+        <sys_package display_value="TestGlobal1" source="16fa34458771b0107c2043fc0ebb3528">16fa34458771b0107c2043fc0ebb3528</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="TestGlobal1">16fa34458771b0107c2043fc0ebb3528</sys_scope>
+        <sys_update_name>sys_cb_topic_6c7cf4898771b0107c2043fc0ebb356f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2021-08-04 06:19:57</sys_updated_on>
+        <type>STANDARD</type>
+        <variables/>
+    </sys_cb_topic>
+    <sys_variable_value action="delete_multiple" query="document_key=6c7cf4898771b0107c2043fc0ebb356f"/>
+</record_update>
